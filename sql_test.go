@@ -12,7 +12,7 @@ func TestExecutionSQL(t *testing.T) {
 
 	ctx := context.Background()
 	
-	script := "INSERT INTO customer(id, name) VALUES('1', 'Dhandy')"
+	script := "INSERT INTO customer(id, name, email, balance, rating, birth_date, married, created_at) VALUES('1', 'Dhandy', 'dhandy@gmail.com', 1000, 5.0, '2007-03-10', FALSE, CURRENT_TIMESTAMP)"
 	_, err := db.ExecContext(ctx, script)
 	if err != nil {
 		panic(err)
