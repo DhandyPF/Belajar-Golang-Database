@@ -2,6 +2,7 @@ package belajar_golang_database
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"testing"
 	"time"
@@ -65,10 +66,12 @@ func TestQuerySQLComplex(t *testing.T) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var id, name, email string
-		var balance int32
-		var rating float64
-		var birth_date, created_at time.Time
+		var id, name string
+		var email sql.NullString
+		var balance sql.NullInt32
+		var rating sql.NullFloat64
+		var birth_date sql.NullTime
+		var created_at time.Time
 		var married bool
 		err := rows.Scan(&id, &name, &email, &balance, &rating, &birth_date, &married, &created_at)
 		if err != nil {
@@ -78,10 +81,18 @@ func TestQuerySQLComplex(t *testing.T) {
 		fmt.Println("===========================================")
 		fmt.Println("ID : ", id)
 		fmt.Println("Name : ", name)
-		fmt.Println("Email : ", email)
-		fmt.Println("Balance : ", balance)
-		fmt.Println("Rating : ", rating)
-		fmt.Println("Birth Date : ", birth_date)
+		if email.Valid {
+			fmt.Println("Email : ", email.String)
+		}
+		if balance.Valid {
+			fmt.Println("Balance : ", balance.Int32)
+		}
+		if rating.Valid {
+			fmt.Println("Rating : ", rating.Float64)
+		}
+		if birth_date.Valid {
+			fmt.Println("Birth Date : ", birth_date.Time)
+		}
 		fmt.Println("Married : ", married)
 		fmt.Println("Created At : ", created_at)
 		fmt.Println("===========================================")
