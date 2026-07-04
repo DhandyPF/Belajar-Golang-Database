@@ -31,3 +31,13 @@ CREATE TABLE user(
 SELECT * FROM user;
 
 INSERT INTO user(username, password) VALUES('admin', 'admin123');
+
+CREATE TABLE comments(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    comment TEXT
+) ENGINE = InnoDB;
+
+DESC comments;
+
+SELECT * FROM comments;
