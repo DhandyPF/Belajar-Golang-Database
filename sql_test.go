@@ -14,8 +14,8 @@ func TestExecutionSQL(t *testing.T) {
 
 	ctx := context.Background()
 	
-	script := "INSERT INTO customer(id, name, email, balance, rating, birth_date, married) VALUES('1', 'Dhandy', 'dhandy@gmail.com', 1000, 5.0, '2007-03-10', FALSE)"
-	_, err := db.ExecContext(ctx, script)
+	script := "INSERT INTO customer(id, name, email, balance, rating, birth_date, married) VALUES(?, ?, ?, ?, ?, ?, ?)"
+	_, err := db.ExecContext(ctx, script, "2", "Dhandy", "dhandy@gmail.com", 1000, 5.0, time.Now(), false)
 	if err != nil {
 		panic(err)
 	}
@@ -113,6 +113,36 @@ func TestSQLInjection(t *testing.T) {
 	script := "SELECT username FROM user WHERE username = '" + username + "' AND password = '" + password + "' LIMIT 1"
 	// fmt.Println(script)
 	rows, err := db.QueryContext(ctx, script)
+	if err != nil{
+		panic(err)
+	}
+
+	defer rows.Close()
+
+	if rows.Next() {
+		var username string
+		err := rows.Scan(&username)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Berhasil Login", username)
+	} else {
+		fmt.Println("Gagal Login")
+	}
+}
+
+func TestSQLInjectionSafe(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	
+	username := "admin"
+	password := "admin"
+
+	script := "SELECT username FROM user WHERE username = ? AND password = ? LIMIT 1"
+	// fmt.Println(script)
+	rows, err := db.QueryContext(ctx, script, username, password)
 	if err != nil{
 		panic(err)
 	}
