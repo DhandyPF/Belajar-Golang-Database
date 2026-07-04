@@ -29,7 +29,7 @@ func TestExecutionSQLParameter(t *testing.T) {
 
 	ctx := context.Background()
 
-	username := "dimas"
+	username := "dimas'; DROP TABLE user; #"
 	password := "dimas"
 	
 	script := "INSERT INTO user(username, password) VALUES(?, ?)"
@@ -38,7 +38,7 @@ func TestExecutionSQLParameter(t *testing.T) {
 		panic(err)
 	}
 
-	fmt.Println("Success insert new User")
+	fmt.Println("Success Insert New User")
 }
 
 func TestQuerySQL(t *testing.T) {
@@ -155,8 +155,8 @@ func TestSQLInjectionSafe(t *testing.T) {
 
 	ctx := context.Background()
 	
-	username := "admin"
-	password := "admin"
+	username := "dimas"
+	password := "dimas"
 
 	script := "SELECT username FROM user WHERE username = ? AND password = ? LIMIT 1"
 	// fmt.Println(script)
