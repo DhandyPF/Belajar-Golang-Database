@@ -22,3 +22,12 @@ INSERT INTO customer(id, name, balance, rating, married, created_at) VALUES('3',
 UPDATE customer SET balance = 666666 WHERE id = '1';
 UPDATE customer SET balance = 50000 WHERE id = '2';
 UPDATE customer SET balance = 75000 WHERE id = '3';
+
+CREATE TABLE user(
+    username VARCHAR(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL
+) ENGINE = InnoDB;
+
+SELECT * FROM user;
+
+INSERT INTO user(username, password) VALUES('admin', 'admin123');
