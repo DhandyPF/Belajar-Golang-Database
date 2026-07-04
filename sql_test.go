@@ -23,6 +23,24 @@ func TestExecutionSQL(t *testing.T) {
 	fmt.Println("Success insert new Customer")
 }
 
+func TestExecutionSQLParameter(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	username := "dimas"
+	password := "dimas"
+	
+	script := "INSERT INTO user(username, password) VALUES(?, ?)"
+	_, err := db.ExecContext(ctx, script, username, password)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success insert new User")
+}
+
 func TestQuerySQL(t *testing.T) {
 	db := GetConnection()
 	defer db.Close()
