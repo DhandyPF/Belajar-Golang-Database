@@ -262,7 +262,7 @@ func TestTransaction(t *testing.T) {
 		fmt.Println("Komen Id : ", lastInsertId)
 	}
 
-	err = tx.Rollback()
+	err = tx.Commit()
 	if err != nil {
 		panic(err)
 	}
