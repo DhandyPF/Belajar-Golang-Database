@@ -41,3 +41,5 @@ CREATE TABLE comments(
 DESC comments;
 
 SELECT * FROM comments;
+
+SELECT COUNT(*) FROM comments;
