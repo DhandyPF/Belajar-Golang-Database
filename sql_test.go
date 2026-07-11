@@ -228,7 +228,7 @@ func TestPrepareStatement(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-
+		
 		fmt.Println("Komen Id : ", lastInsertId)
 	}
 }
